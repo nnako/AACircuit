@@ -1,27 +1,48 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "aacircuit"
 version = "0.0.1"
-authors = [
-  { name="blokkendoos", email="jvo@chaosgeordend.nl" },
-]
+description = "Draw electronic circuits with ASCII characters."
+readme = "README.txt"
 requires-python = ">=3.10"
-dependencies = [
-  "PyGObject",
-  "bresenham",
-  "platformdirs",
-  "pycairo",
-  "pyclip",
-  "pypubsub",
+authors = [
+  { name = "blokkendoos", email = "jvo@chaosgeordend.nl" },
 ]
 
+# Debian/Ubuntu first need: build-essential pkg-config python3-dev libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0
+dependencies = [
+  "PyGObject==3.48.2",
+  "bresenham==0.2.1",
+  "platformdirs==4.11.11",
+  "pycairo==1.25.1",
+  "pyclip==0.7.0",
+  "Pypubsub==4.0.7",
+]
+
+# Installs the `aacircuit` launcher when `pip install --editable .` is used.
 [project.gui-scripts]
 aacircuit = "application.main:main"
 
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
 [tool.setuptools]
-packages = [
-  "application",
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["application*"]
+
+# The application loads these resources by filename at run time. Declare them
+# explicitly so editable installs, wheels, and source distributions contain the
+# same interface and component-library files.
+[tool.setuptools.package-data]
+application = [
+  "*.bmp",
+  "*.css",
+  "*.glade",
+  "bitmaps/*.bmp",
+  "buttons/*.bmp",
+  "buttons/*.png",
+  "components/*.json",
+  "locale/*/LC_MESSAGES/*.mo",
 ]
