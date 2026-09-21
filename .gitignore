@@ -21,4 +21,8 @@ build/
 dist/
 
 gettext/
- 
+
+# local dev
+/.venv
+/AGENTS.md
+/.codex
